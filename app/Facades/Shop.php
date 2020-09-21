@@ -16,6 +16,13 @@ class Shop {
 	}
 
 	/*
+	* count product in categories
+	*/
+	public function count_products () {
+
+	}
+
+	/*
 	* cart count product 
 	* return amount of products
 	*/

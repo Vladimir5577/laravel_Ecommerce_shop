@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryAdminController;
 use App\Http\Controllers\Admin\PersonAdminController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\UserController;
+use App\Http\Controllers\Admin\OrderAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,18 @@ Route::get('/', function () {
 });
 */
 
+// main page for login user
+Route::middleware(['auth:sanctum', 'verified'])
+			->get('/dashboard', [ShopController::class, 'index'])
+			->name('dashboard');
+
+
+
 // shop main
 Route::get('/', [ShopController::class, 'index'])->name('shop');
+
+// 
+Route::get('/shop/{category}', [ShopController::class, 'get_product_by_category'])->name('get_product_by_category');
 
 // register admin page
 Route::get('/register_admin', [PersonAdminController::class, 'register_admin'])
@@ -43,6 +54,7 @@ Route::post('/login_admin_user', [PersonAdminController::class, 'login_admin_use
 
 // admin login route
 Route::middleware(['admin_auth'])->group(function () {
+	Route::get('/admin', [ProductAdminController::class, 'products']);
 
 	// products show
 	Route::get('/products', [ProductAdminController::class, 'products'])
@@ -91,6 +103,12 @@ Route::middleware(['admin_auth'])->group(function () {
 	// category delete by id
 	Route::get('/delete_category/{id}', [CategoryAdminController::class, 'delete_category'])->name('delete_category');
 
+	// orders
+	Route::get('/orders', [OrderAdminController::class, 'orders'])->name('orders');
+
+	// detail order user
+	Route::get('/detail_order_user/{id}', [OrderAdminController::class, 'detail_order_user'])->name('detail_order_user');
+
 	// log out from admin
 	Route::get('/admin_logout', [PersonAdminController::class, 'admin_logout'])->name('admin_logout');
 			
@@ -98,21 +116,31 @@ Route::middleware(['admin_auth'])->group(function () {
 
 // shop
 
+/*
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
+*/
 
 
-Route::get('/add_to_user_cart/{id}', [UserController::class, 'add_to_user_cart'])->name('add_to_user_cart');
+// group by auth middleware
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-Route::get('/cart_show', [UserController::class, 'cart_show'])->name('cart_show');
+	Route::get('/add_to_user_cart/{id}', [UserController::class, 'add_to_user_cart'])->name('add_to_user_cart');
 
-Route::get('/cart_delete_product/{id}', [UserController::class, 'cart_delete_product'])->name('cart_delete_product');
+	Route::get('/cart_show', [UserController::class, 'cart_show'])->name('cart_show');
 
-Route::get('/show_item/{id}', [UserController::class, 'show_item'])->name('show_item');
+	Route::get('/cart_delete_product/{id}', [UserController::class, 'cart_delete_product'])->name('cart_delete_product');
 
-// submit order
-Route::get('/submit_order_page', [UserController::class, 'submit_order_page'])->name('submit_order_page');
+	Route::get('/show_item/{id}', [UserController::class, 'show_item'])->name('show_item');
 
-// submit order
-Route::post('/submit_user_order', [UserController::class, 'submit_user_order'])->name('submit_user_order');
+	// submit order
+	Route::get('/submit_order_page', [UserController::class, 'submit_order_page'])->name('submit_order_page');
+
+	// submit order
+	Route::post('/submit_user_order', [UserController::class, 'submit_user_order'])->name('submit_user_order');
+
+
+});
+
+

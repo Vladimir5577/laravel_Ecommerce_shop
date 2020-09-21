@@ -27,4 +27,14 @@ class ShopController extends Controller
     			'products' => $products,
     		]);
     }
+
+    /*
+    * get_product_by_category
+    */
+    public function get_product_by_category ($category) {
+    	$products = $this->shopService->get_product_by_category($category);
+        return view('shop.shop_main', [
+                'products' => $products,
+            ]);
+    }
 }

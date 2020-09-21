@@ -60,18 +60,24 @@
                      @if (Route::has('login'))
 
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+
+                            <!-- <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a> -->
                         @else
                             <p> &nbsp;  &nbsp;</p>
-                            <a href="{{ route('login') }}" class="btn btn-success">Login</a>  
+                            <a href="{{ route('login') }}" class="btn btn-success">Already have an account? Login</a>  
                             <p> &nbsp;  &nbsp;</p>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn btn-success">Register</a>
+                                <a href="{{ route('register') }}" class="btn btn-success">Register to start shopping</a>
                             @endif
                         @endif
                       @endif
                   </ul>
+
+                    
+
               </div>
+
+
 
               <p> &nbsp;  &nbsp;</p>
 
@@ -81,10 +87,18 @@
                       {{ Shop::cart_count() }}
                     </strong>
                  </a>
+
+                 <p> &nbsp;  &nbsp;</p>
+
+                 <form action="/logout" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-warning btn-xs"  onclick="sweetalert(event)">Logout</button>
+                 </form>
+
               @endif
 
               @if(!(Auth::user()))
-                 <a style="width: 150px" type="button" class="btn btn-block btn-danger btn-xs">Cart123</a>
+                <!--  <a style="width: 150px" type="button" class="btn btn-block btn-danger btn-xs">Cart</a> -->
               @endif
 
       </div>
@@ -93,20 +107,29 @@
 
 
 
-
-
-
   @yield('content')
 
 
 
+  <br><br><br>
   <!-- Footer -->
-  <footer class="py-3 bg-dark">
+  <footer class="py-3 bg-dark" style=" position: fixed; left: 0; bottom: 0; width: 100%;">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
     </div>
     <!-- /.container -->
   </footer>
+
+ <!-- alert script -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+  <script type="text/javascript">
+    function sweetalert(e) {
+      e.preventDefault();
+      Swal.fire('Any fool can use a computer');
+      window.location = e.target.getAttribute("button");
+    }
+  </script> -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

@@ -6,7 +6,7 @@
       <a href="{{ route('shop') }}" class="list-group-item">All products</a>
 
       @foreach(Shop::get_categories() as $key => $value)
-        <a href="" class="list-group-item ">{{ $value->category }}</a>
+        <a href="{{ route('get_product_by_category', $value->id) }}" class="list-group-item ">{{ $value->category }}</a>
       @endforeach
 
       <!-- <a href="#" class="list-group-item">Category 1</a>

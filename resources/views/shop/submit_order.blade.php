@@ -17,7 +17,8 @@
         <h1>Form submission</h1>
 
         @php
-          $total_sum = session()->pull('total_sum');
+          $total_sum = Session::get('total_sum');
+          $user_products = Session::get('user_products');
         @endphp
 
         <h3>Totall sum: {{ $total_sum }}</h3>
@@ -27,6 +28,7 @@
           @csrf
 
           <input type="hidden" name="total_sum" value="{{ $total_sum }}">
+          <input type="hidden" name="user_products" value="{{ $user_products }}">
 
           <!-- address -->
           <div class="form-group">

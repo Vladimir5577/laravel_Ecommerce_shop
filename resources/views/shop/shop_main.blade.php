@@ -79,7 +79,7 @@
                   @endif
 
                   @if(!(Auth::user()))
-                    <a href="" class="btn btn-block btn-primary btn-xs">Add to the card</a>
+                    <!-- <a href="" class="btn btn-block btn-primary btn-xs">Add to the card</a> -->
                   @endif
 
                 </div>

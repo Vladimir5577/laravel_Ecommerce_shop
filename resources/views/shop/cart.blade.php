@@ -39,6 +39,7 @@
               @php 
                 $i = 0; 
                 $total_sum = [];
+                $user_products = [];
               @endphp
 
               @foreach($products as $key => $value)
@@ -61,6 +62,10 @@
                     <a href="{{ route('cart_delete_product', $value->id) }}" class="btn btn-danger btn-sm" onclick="sweetalert(event)">Delete</a>
                   </td>
 
+                  @php
+                    array_push($user_products, $value->id)
+                  @endphp
+
                 </tr>
 
               @endforeach
@@ -70,7 +75,9 @@
 
           @php 
             $total = array_sum($total_sum);
+            $user_products_serialize = serialize($user_products);
             session()->put('total_sum', $total) ; 
+            session()->put('user_products', $user_products_serialize);
           @endphp
 
           <h2>Total sum: <strong>{{ $total }}</strong> $</h2>
@@ -84,9 +91,7 @@
 
         @if(Auth::user())
           @if(Shop::cart_count() > 0)
-            <a href="{{ route('submit_order_page') }}" class="btn btn-success btn-lg btn-block">
-              Submit order
-            </a>
+            <a href="{{ route('submit_order_page') }}" class="btn btn-success btn-lg btn-block" >Submit order</a>
           @else
             <div class="alert alert-warning">
               <h3>Your cart is empty</h3>

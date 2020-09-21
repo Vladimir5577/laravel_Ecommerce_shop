@@ -19,4 +19,8 @@ class Product extends Model
     public function users () {
     	return $this->belongstoMany('App\Models\User');
     }
+
+    public function order () {
+        return $this->belongsTo('App\Models\Order');
+    }
 }

@@ -56,6 +56,7 @@ class UserController extends Controller
     * submit order page
     */
     public function submit_order_page () {
+    	// $this->user_cart->submit_order_page($request);
     	return view('shop.submit_order');
     }
 
@@ -63,6 +64,7 @@ class UserController extends Controller
     * submit user order
     */
     public function submit_user_order (OrderUserRequest $request) {
-    	dd($request);
+    	$this->user_cart->submit_user_order($request);
+    	return view('shop.confirmed_order');
     }
 }

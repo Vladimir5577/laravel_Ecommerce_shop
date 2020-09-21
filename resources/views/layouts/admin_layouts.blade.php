@@ -235,19 +235,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Customers
               </p>
               <span class="badge badge-info right">
-
+                  {{ Admin::count_records()['count_customers'] }}
               </span>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link @if(isset($active_orders)) ? active : '' @endif">
+            <a href="{{ route('orders') }}" class="nav-link @if(isset($active_orders)) ? active : '' @endif">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Orders
               </p>
               <span class="badge badge-info right">
-
+                {{ Admin::count_records()['count_orders'] }}
               </span>
             </a>
           </li>

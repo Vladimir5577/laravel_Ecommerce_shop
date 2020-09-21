@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Order;
 
 class UserCartService {
 
@@ -44,6 +45,35 @@ class UserCartService {
 	public function show_item ($product_id) {
 		return Product::find($product_id);
 	} 
+
+	/*
+	* submit order
+	*/
+	public function submit_order_page ($data) {
+
+	}
+
+	/*
+	* submit order
+ 	*/
+ 	public function submit_user_order ($data) {
+ 		$user_id = \Auth::user()->id;
+
+ 		$order = new Order();
+ 		$order->user_id = $user_id;
+ 		$order->products = $data->user_products;
+ 		$order->total_sum = $data->total_sum;
+ 		$order->payment = $data->payment;
+ 		$order->delivery = $data->delivery;
+
+ 		$order->save();
+
+ 		// to delete from user cart after submitting order
+ 		$user = User::find($user_id);
+		$user->products()->detach(unserialize($data->user_products));
+
+ 		return true;
+ 	}	
 }
 
 
