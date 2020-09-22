@@ -4,7 +4,6 @@
 @section('content')
 
 
-
   <!-- Page Content -->
   <div class="container">
 
@@ -88,8 +87,9 @@
 
           @endforeach
 
+          <!-- pagination -->
+          {{ $products->links() }}
 
-          
 
 <!--           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">

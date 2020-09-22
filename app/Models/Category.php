@@ -12,7 +12,7 @@ class Category extends Model
     /*
     * category belongs to product
     */
-    public function product () {
+    public function products () {
     	return $this->hasMany('App\Models\Product');
     }
 }

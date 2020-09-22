@@ -22,9 +22,10 @@ class ShopController extends Controller
 	* main page
 	*/
     public function index () {
-    	$products = Product::get();
+    	$products = Product::paginate(15);
     	return view('shop.shop_main', [
     			'products' => $products,
+                'active_all' => 'active',
     		]);
     }
 

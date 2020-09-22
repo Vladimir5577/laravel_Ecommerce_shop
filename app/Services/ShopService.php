@@ -13,7 +13,7 @@ class ShopService {
 
 	public function get_product_by_category ($category_id) {
 		$category = Category::find($category_id);
-		$products = $category->product;
+		$products = $category->products()->paginate(15);
 		return $products;
 	}
 

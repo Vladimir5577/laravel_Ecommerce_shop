@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PersonAdminController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\UserController;
 use App\Http\Controllers\Admin\OrderAdminController;
+use App\Http\Controllers\Admin\CustomerAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ Route::middleware(['auth:sanctum', 'verified'])
 // shop main
 Route::get('/', [ShopController::class, 'index'])->name('shop');
 
-// 
+// shop display product by category
 Route::get('/shop/{category}', [ShopController::class, 'get_product_by_category'])->name('get_product_by_category');
 
 // register admin page
@@ -52,7 +53,7 @@ Route::get('/login_admin_page', [PersonAdminController::class, 'login_admin_page
 Route::post('/login_admin_user', [PersonAdminController::class, 'login_admin_user'])->name('login_admin_user');
 
 
-// admin login route
+// group by admin middleware
 Route::middleware(['admin_auth'])->group(function () {
 	Route::get('/admin', [ProductAdminController::class, 'products']);
 
@@ -105,6 +106,9 @@ Route::middleware(['admin_auth'])->group(function () {
 
 	// orders
 	Route::get('/orders', [OrderAdminController::class, 'orders'])->name('orders');
+
+	// customers
+	Route::get('/get_customers', [CustomerAdminController::class, 'get_customers'])->name('get_customers');
 
 	// detail order user
 	Route::get('/detail_order_user/{id}', [OrderAdminController::class, 'detail_order_user'])->name('detail_order_user');
